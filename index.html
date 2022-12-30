@@ -1,99 +1,89 @@
+
 <html>
 
 <head>
-  <link href="index.css" rel="stylesheet">
-  <title>MID Marks Calculator</title>
+    <title>MID Marks Calculator</title>
 </head>
 
 <body>
-  <h1>MID Marks Calculator</h1>
+    <h1>MID Marks Calculator</h1>
 
-  <!-- Form for user to enter MID marks -->
-  <form id="mid-marks-form">
-    <div style="display: flex;">
-      <div>
+    <!-- Form for user to enter MID marks -->
+    <form id="mid-marks-form">
         <label for="obj1">Objective 1:</label><br>
         <input type="number" id="obj1" name="obj1"><br>
         <label for="des1">Descriptive 1:</label><br>
         <input type="number" id="des1" name="des1"><br>
         <label for="assign1">Assignment 1:</label><br>
         <input type="number" id="assign1" name="assign1"><br><br>
-      </div>
-      <div>
         <label for="obj2">Objective 2:</label><br>
         <input type="number" id="obj2" name="obj2"><br>
         <label for="des2">Descriptive 2:</label><br>
         <input type="number" id="des2" name="des2"><br>
         <label for="assign2">Assignment 2:</label><br>
         <input type="number" id="assign2" name="assign2"><br><br>
-      </div>
-    </div>
-    <button type="submit">Calculate MID Marks</button>
-    <button type="reset">Reset</button>
-  </form>
-  
-  <!-- Div to display the results -->
-  <div id="results"></div>
+        <button type="submit">Calculate MID Marks</button>
+    </form>
 
-  <script>
-    // Get the form element
-    const form = document.getElementById('mid-marks-form');
+    <!-- Div to display the results -->
+    <div id="results"></div>
 
-    // Add a submit event listener to the form
-    form.addEventListener('submit', (event) => {
-      // Prevent the default form submission behavior
-      event.preventDefault();
+    <script>
+        // Get the form element
+        const form = document.getElementById('mid-marks-form');
 
-      // Get the form input values
-      const obj1 = document.getElementById('obj1').value;
-      const des1 = document.getElementById('des1').value;
-      const assign1 = document.getElementById('assign1').value;
-      const obj2 = document.getElementById('obj2').value;
-      const des2 = document.getElementById('des2').value;
-      const assign2 = document.getElementById('assign2').value;
+        // Add a submit event listener to the form
+        form.addEventListener('submit', (event) => {
+            // Prevent the default form submission behavior
+            event.preventDefault();
 
-      // Calculate first mid term marks
-      const mid1 = obj1 + des1 + assign1;
+            // Get the form input values
+            const obj1 = document.getElementById('obj1').value;
+            const des1 = document.getElementById('des1').value;
+            const assign1 = document.getElementById('assign1').value;
+            const obj2 = document.getElementById('obj2').value;
+            const des2 = document.getElementById('des2').value;
+            const assign2 = document.getElementById('assign2').value;
 
-      // Calculate second mid term marks
-      const mid2 = obj2 + des2 + assign2;
+            // Calculate first mid term marks
+            const mid1 = obj1 + des1 + assign1;
 
-      // Calculate best of mid1 and mid2
-      const bestMid = Math.max(mid1, mid2);
+            // Calculate second mid term marks
+            const mid2 = obj2 + des2 + assign2;
 
-      // Calculate least of mid1 and mid2
-      const leastMid = Math.min(mid1, mid2);
+            // Calculate best of mid1 and mid2
+            const bestMid = Math.max(mid1, mid2);
 
-      // Calculate 80% of best_mid
-      const eightyPercentBestMid = 0.8 * bestMid;
+            // Calculate least of mid1 and mid2
+            const leastMid = Math.min(mid1, mid2);
 
-      // Calculate 20% of least_mid
-      const twentyPercentLeastMid = 0.2 * leastMid;
+            // Calculate 80% of best_mid
+            const eightyPercentBestMid = 0.8 * bestMid;
 
-      // Calculate final internal marks
-      const finalInternalMarks = eightyPercentBestMid + twentyPercentLeastMid;
+            // Calculate 20% of least_mid
+            const twentyPercentLeastMid = 0.2 * leastMid;
 
-      // Calculate ceil of final internal marks
-      const ceilFinalInternalMarks = Math.ceil(finalInternalMarks);
+            // Calculate final internal marks
+            const finalInternalMarks = eightyPercentBestMid + twentyPercentLeastMid;
 
-      // Get the results div
-      const resultsDiv = document.getElementById('results');
+            // Calculate ceil of final internal marks
+            const ceilFinalInternalMarks = Math.ceil(finalInternalMarks);
 
-      // Clear the results div
-      resultsDiv.innerHTML = '';
+            // Get the results div
+            const resultsDiv = document.getElementById('results');
 
-      // Add the results to the results div
-      resultsDiv.innerHTML = `
-  <p>Best of MID 1 and MID 2: ${bestMid}</p>
-  <p>Least of MID 1 and MID 2: ${leastMid}</p>
-  <p>80% of best of MID 1 and MID 2: ${eightyPercentBestMid}</p>
-  <p>20% of least of MID 1 and MID 2: ${twentyPercentLeastMid}</p>
-  <p>Final internal marks: ${finalInternalMarks}</p>
-  <p>Ceil of final internal marks: ${ceilFinalInternalMarks}</p>
-`;
+            // Clear the results div
+            resultsDiv.innerHTML = '';
 
-    });
-  </script>
+            // Add the results to the results div
+            resultsDiv.innerHTML += `<p>Best of MID 1 and MID 2 ---> ${bestMid}</p>`;
+            resultsDiv.innerHTML += `<p>Least of MID 1 and MID 2 ---> ${leastMid}</p>`;
+            resultsDiv.innerHTML += `<p>80% of best of MID 1 and MID 2 ---> ${eightyPercentBestMid}</p>`;
+            resultsDiv.innerHTML += `<p>20% of least of MID 1 and MID 2 ---> ${twentyPercentLeastMid}</p>`;
+            resultsDiv.innerHTML += `<p>Final internal marks ---> ${finalInternalMarks}</p>`;
+            resultsDiv.innerHTML += `<p>Ceil of final internal marks---> ${ceilFinalInternalMarks}</p>`;
+        });
+    </script>
 </body>
 
 </html>
