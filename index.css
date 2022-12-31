@@ -1,80 +1,76 @@
-/* Add a black background color to the top navigation */
-.topnav {
-  background-color: #333;
+/* Add a black background color to the body */
+body {
+  background: #AA076B;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #61045F, #AA076B);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #61045F, #AA076B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  
 }
 
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: left;
-  color: #f2f2f2;
+/* Style the h1 element */
+h1 {
+  font-size: 36px;
+  color: #fff;
   text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-/* Style the form and inputs */
-#mid-marks-form {
-  margin: auto;
-  width: 50%;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#mid-marks-form input[type=number] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-#mid-marks-form button[type=submit], button[type=reset] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#mid-marks-form button[type=reset] {
-  background-color: #888;
-}
-
-/* Style the results div */
-#results {
+  font-weight: normal;
   margin: 20px 0;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
-/* Style the results paragraphs */
-#results p {
-  margin: 10px 0;
-  font-size: 16px;
+p{
+  font-size: 36px;
+  color: #fff;
+  text-align: left;
+  font-weight: normal;
+  margin: 20px 0;
+
 }
 
-/* Add a responsive layout to the form and results */
-@media (max-width: 600px) {
-  #mid-marks-form, #results {
-    width: 100%;
-  }
+/* Style the div elements that contain the input fields and button */
+div {
+  display: flex; /* Use flexbox layout for the div elements */
+  justify-content: space-between; /* Spread the div elements horizontally, with equal space between them */
+  margin: 10px 0; /* Add a margin of 10px at the top and bottom of the div elements */
+}
+
+/* Style the input fields */
+input[type=number] {
+  width: 40%; /* Set the width of the input fields to 40% */
+  padding: 8px 10px; /* Add some padding to the input fields */
+  border: 1px solid #CCC; /* Add a border to the input fields */
+  border-radius: 4px; /* Round the corners of the input fields */
+  font-size: 16px; /* Set the font size of the input fields to 16px */
+}
+
+/* Style the button */
+button {
+  background-color: #4CAF50; /* Set the background color of the button to green */
+  border: none; /* Remove the border from the button */
+  color: white; /* Set the text color of the button to white */
+  padding: 15px 32px; /* Add some padding to the button */
+  text-align: center; /* Center align the text inside the button */
+  text-decoration: none; /* Remove the default text decoration from the button */
+  display: inline-block; /* Display the button as an inline block element */
+  font-size: 16px; /* Set the font size of the button text */
+  margin: 4px 2px; /* Add some margin to the button */
+  cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
+  border-radius: 5px; /* Add some rounded corners to the button */
+}
+button {
+  display: block;
+  margin: auto;
+}
+
+#output {
+  display: table; /* Display the output as a table */
+  border-collapse: collapse; /* Remove the space between table cells */
+  border: 1px solid #fff; /* Add a border around the table cells */
+}
+
+#output div {
+  display: table-row; /* Display the div element as a table row */
+}
+
+#output p {
+  display: table-cell; /* Display the p element as a table cell */
+  padding: 8px; /* Add some padding to the table cells */
 }

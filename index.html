@@ -1,60 +1,63 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-  <title>SRGEC R20 Batch Internal Marks Calculator</title>
+    <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-  <h1>SRGEC R20 Batch Internal Marks Calculator</h1>
-  <form>
-    <label for="obj1">Objective 1:</label><br>
-    <input type="number" id="obj1" name="obj1"><br>
-    <label for="des1">Descriptive 1:</label><br>
-    <input type="number" id="des1" name="des1"><br>
-    <label for="assign1">Assignment 1:</label><br>
-    <input type="number" id="assign1" name="assign1"><br>
-    <br>
-    <label for="obj2">Objective 2:</label><br>
-    <input type="number" id="obj2" name="obj2"><br>
-    <label for="des2">Descriptive 2:</label><br>
-    <input type="number" id="des2" name="des2"><br>
-    <label for="assign2">Assignment 2:</label><br>
-    <input type="number" id="assign2" name="assign2"><br>
-    <br>
-    <button onclick="calculateMarks()">Calculate Marks</button>
-  </form> 
-  <br>
-  <div id="result"></div>
-  <script>
-    function calculateMarks() {
-      // Read input from user
-      var obj1 = parseFloat(document.getElementById("obj1").value);
-      var des1 = parseFloat(document.getElementById("des1").value);
-      var assign1 = parseFloat(document.getElementById("assign1").value);
-      var obj2 = parseFloat(document.getElementById("obj2").value);
-      var des2 = parseFloat(document.getElementById("des2").value);
-      var assign2 = parseFloat(document.getElementById("assign2").value);
 
-      // Calculate MID 1 and MID 2
-      var mid1 = obj1 + des1 + assign1;
-      var mid2 = obj2 + des2 + assign2;
+    <h1>SRGEC R20 BATCH INTERNAL MARKS CALCULATOR</h1>
+    <div style="display: table; width: 100%;">
+        <div style="display: table-row;">
+          <div style="display: table-cell; width: 50%;">
+            <p>Enter Obj 1: <input type="number" id="obj1"></p>
+            <p>Enter Des 1: <input type="number" id="des1"></p>
+            <p>Enter Assign 1: <input type="number" id="assign1"></p>
+          </div>
+          <div style="display: table-cell; width: 50%;">
+            <p>Enter Obj 2: <input type="number" id="obj2"></p>
+            <p>Enter Des 2: <input type="number" id="des2"></p>
+            <p>Enter Assign 2: <input type="number" id="assign2"></p>
+          </div>
+        </div>
+      </div>
+      
+    <button onclick="calculate()">Calculate</button>
 
-      // Calculate best and least of MID 1 and MID 2
-      var best_mid = Math.max(mid1, mid2);
-      var least_mid = Math.min(mid1, mid2);
+    <p id="output"></p>
 
-      // Calculate 80% of best MID and 20% of least MID
-      var eighty_percent_mid = 0.8 * best_mid;
-      var twenty_percent_mid = 0.2 * least_mid;
+    <script>
+        function calculate() {
+            var obj1 = parseFloat(document.getElementById("obj1").value);
+            var des1 = parseFloat(document.getElementById("des1").value);
+            var assign1 = parseFloat(document.getElementById("assign1").value);
+            var mid1 = obj1 + des1 + assign1;
 
-      // Calculate final internal marks
-      var final_internal_marks = eighty_percent_mid + twenty_percent_mid;
+            var obj2 = parseFloat(document.getElementById("obj2").value);
+            var des2 = parseFloat(document.getElementById("des2").value);
+            var assign2 = parseFloat(document.getElementById("assign2").value);
+            var mid2 = obj2 + des2 + assign2;
 
-      // Calculate and display final internal marks with one decimal place
-      document.getElementById("result").innerHTML = 
-        "Final internal marks: " + final_internal_marks.toFixed(1) + "<br>" +
-        "Ceil final internal marks: " + Math.ceil(final_internal_marks);
-    }
-  </script>
+            var best_mid, least_mid;
+            if (mid1 > mid2) {
+                best_mid = mid1;
+                least_mid = mid2;
+            }
+            else {
+                best_mid = mid2;
+                least_mid = mid1;
+            }
 
+            var mid = 0.8 * best_mid + 0.2 * least_mid;
+            var output = 
+                "80% of MID: " + (0.8 * mid).toFixed(1) + "\n" +
+                "20% of MID: " + (0.2 * mid).toFixed(1) + "\n" +
+                "Ceil final internal marks: " + Math.ceil(mid);
+            document.getElementById("output").innerText = output;
+        }
+    </script>
 
 </body>
+
 </html>
