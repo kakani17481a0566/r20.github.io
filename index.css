@@ -74,3 +74,62 @@ button {
   display: table-cell; /* Display the p element as a table cell */
   padding: 8px; /* Add some padding to the table cells */
 }
+
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+  margin: 0 auto;
+}
+
+/* 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #45a049;
+} */
+
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+
+td, th {
+  color: white;
+  font-weight: bold;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+
+.bold-white {
+  color: white;
+  font-weight: bold;
+}
+
+

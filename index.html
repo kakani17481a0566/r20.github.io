@@ -1,63 +1,114 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <link rel="stylesheet" href="index.css">
-</head>
-
+  <head><link rel="stylesheet" href="index.css"></head>
 <body>
 
-    <h1>SRGEC R20 BATCH INTERNAL MARKS CALCULATOR</h1>
-    <div style="display: table; width: 100%;">
-        <div style="display: table-row;">
-          <div style="display: table-cell; width: 50%;">
-            <p>Enter Obj 1: <input type="number" id="obj1"></p>
-            <p>Enter Des 1: <input type="number" id="des1"></p>
-            <p>Enter Assign 1: <input type="number" id="assign1"></p>
-          </div>
-          <div style="display: table-cell; width: 50%;">
-            <p>Enter Obj 2: <input type="number" id="obj2"></p>
-            <p>Enter Des 2: <input type="number" id="des2"></p>
-            <p>Enter Assign 2: <input type="number" id="assign2"></p>
-          </div>
-        </div>
-      </div>
-      
-    <button onclick="calculate()">Calculate</button>
+<h1>Internal Marks Calculator</h1>
 
-    <p id="output"></p>
 
-    <script>
-        function calculate() {
-            var obj1 = parseFloat(document.getElementById("obj1").value);
-            var des1 = parseFloat(document.getElementById("des1").value);
-            var assign1 = parseFloat(document.getElementById("assign1").value);
-            var mid1 = obj1 + des1 + assign1;
+<table>
+  <tr>
+    <td colspan="2"><strong>MID 1</strong></td>
+    <td colspan="2"><strong>MID 2</strong></td>
+  </tr>
+  <tr>
+    <td>Obj 1:</td>
+    <td><input type="text" id="obj1"></td>
+    <td>Obj 2:</td>
+    <td><input type="text" id="obj2"></td>
+  </tr>
+  <tr>
+    <td>Des 1:</td>
+    <td><input type="text" id="des1"></td>
+    <td>Des 2:</td>
+    <td><input type="text" id="des2"></td>
+  </tr>
+  <tr>
+    <td>Assign 1:</td>
+    <td><input type="text" id="assign1"></td>
+    <td>Assign 2:</td>
+    <td><input type="text" id="assign2"></td>
+  </tr>
+  <tr>
+    <td colspan="4"><button onclick="calculateInternalMarks()">Calculate Internal Marks</button></td>
+  </tr>
+</table>
 
-            var obj2 = parseFloat(document.getElementById("obj2").value);
-            var des2 = parseFloat(document.getElementById("des2").value);
-            var assign2 = parseFloat(document.getElementById("assign2").value);
-            var mid2 = obj2 + des2 + assign2;
+<p id="result"></p>
 
-            var best_mid, least_mid;
-            if (mid1 > mid2) {
-                best_mid = mid1;
-                least_mid = mid2;
-            }
-            else {
-                best_mid = mid2;
-                least_mid = mid1;
-            }
+<script>function calculateInternalMarks() {
+  // Read input from user
+  var obj1 = parseFloat(document.getElementById("obj1").value);
+  var des1 = parseFloat(document.getElementById("des1").value);
+  var assign1 = parseFloat(document.getElementById("assign1").value);
+  var obj2 = parseFloat(document.getElementById("obj2").value);
+  var des2 = parseFloat(document.getElementById("des2").value);
+  var assign2 = parseFloat(document.getElementById("assign2").value);
 
-            var mid = 0.8 * best_mid + 0.2 * least_mid;
-            var output = 
-                "80% of MID: " + (0.8 * mid).toFixed(1) + "\n" +
-                "20% of MID: " + (0.2 * mid).toFixed(1) + "\n" +
-                "Ceil final internal marks: " + Math.ceil(mid);
-            document.getElementById("output").innerText = output;
-        }
-    </script>
+  // Check that values are in range
+  if (obj1 < 0 || obj1 > 10) {
+    document.getElementById("result").innerHTML = "Error: Obj 1 is out of range.";
+    return;
+  }
+  if (des1 < 0 || des1 > 15) {
+    document.getElementById("result").innerHTML = "Error: Des 1 is out of range.";
+    return;
+  }
+  if (assign1 < 0 || assign1 > 5) {
+    document.getElementById("result").innerHTML = "Error: Assign 1 is out of range.";
+    return;
+  }
+  if (obj2 < 0 || obj2 > 10) {
+    document.getElementById("result").innerHTML = "Error: Obj 2 is out of range.";
+    return;
+  }
+  if (des2 < 0 || des2 > 15) {
+    document.getElementById("result").innerHTML = "Error: Des 2 is out of range.";
+    return;
+  }
+  if (assign2 < 0 || assign2 > 5) {
+  document.getElementById("result").innerHTML = "Error: Assign 2 is out of range.";
+  return;
+}
+
+// Calculate MID 1 and MID 2
+var mid1 = obj1 + des1 + assign1;
+var mid2 = obj2 + des2 + assign2;
+
+// Calculate best and least MID
+var best_mid = Math.max(mid1, mid2);
+var least_mid = Math.min(mid1, mid2);
+
+// Calculate 80% of best MID and 20% of least MID
+var mid_80 = 0.8 * best_mid;
+var mid_20 = 0.2 * least_mid;
+
+// Calculate final internal marks
+var final_internal_marks = mid_80 + mid_20;
+
+// Calculate and print CEIL final internal marks
+var ceil_final_internal_marks = Math.ceil(final_internal_marks);
+
+// Create the table structure
+var resultTable = '<table>';
+resultTable += '<tr><th>MID</th><th>MID 1</th><th>MID 2</th></tr>';
+resultTable += '<tr><td>Obj</td><td>' + obj1 + '</td><td>' + obj2 + '</td></tr>';
+resultTable += '<tr><td>Des</td><td>' + des1 + '</td><td>' + des2 + '</td></tr>';
+resultTable += '<tr><td>Assign</td><td>' + assign1 + '</td><td>' + assign2 + '</td></tr>';
+resultTable += '<tr><td>MID</td><td>' + mid1 + '</td><td>' + mid2 + '</td></tr>';
+resultTable += '<tr><td>Best MID</td><td colspan="2">' + best_mid + '</td></tr>';
+resultTable += '<tr><td>Least MID</td><td colspan="2">' + least_mid + '</td></tr>';
+resultTable += '<tr><td>80% of Best MID</td><td colspan="2">' + mid_80 + '</td></tr>';
+resultTable += '<tr><td>20% of Least MID</td><td colspan="2">' + mid_20 + '</td></tr>';
+resultTable += '<tr><td>CEIL Final Internal Marks</td><td colspan="2">' + ceil_final_internal_marks + '</td></tr>';
+resultTable += '</table>';
+
+// Set the result table as the inner HTML of the result element
+document.getElementById("result").innerHTML = resultTable;
+
+
+}
+</script>
 
 </body>
-
 </html>
