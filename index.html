@@ -64,7 +64,7 @@
       var assign2 = parseFloat(document.getElementById("assign2").value);
 
       // Check that values are in range
-      if (isNaN(obj1) || obj1 < 0 || obj1 > 20) {
+      if (isNaN(obj1) || obj1 < 0 || obj1 > 10) {
         document.getElementById("result").innerHTML = "Error: Obj 1 is out of range or not a number.";
         return;
       }
@@ -76,7 +76,7 @@
         document.getElementById("result").innerHTML = "Error: Assign 1 is out of range or not a number.";
         return;
       }
-      if (isNaN(obj2) || obj2 < 0 || obj2 > 20) {
+      if (isNaN(obj2) || obj2 < 0 || obj2 > 10) {
         document.getElementById("result").innerHTML = "Error: Obj 2 is out of range or not a number.";
         return;
       }
@@ -89,9 +89,9 @@
         return;
       }
       // Calculate MID 1 and MID 2
-      obj1 /= 2;
+      // obj1 /= 2;
       var mid1 = obj1 + des1 + assign1;
-      obj2 /= 2;
+      // obj2 /= 2;
       var mid2 = obj2 + des2 + assign2;
 
       // Calculate best and least MID
