@@ -107,15 +107,6 @@ button:hover {
 } */
 
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  font-weight: bold;
-  padding: 12px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
 
 
 td, th {
