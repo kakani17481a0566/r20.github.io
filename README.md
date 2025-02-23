@@ -1,4 +1,4 @@
-# SRGEC R20 BATCH INTERNAL MARKS CALCULATOR
+# SRGEC R20 Batch Internal Marks Calculator
 
 ## Overview
 The SRGEC R20 Batch Internal Marks Calculator is a web application designed to help students and educators calculate internal marks based on performance in two mid-term assessments (MID 1 and MID 2). The application allows users to input scores for objective, descriptive, and assignment assessments and provides a final internal mark based on a weighted average.
@@ -33,7 +33,7 @@ The SRGEC R20 Batch Internal Marks Calculator is a web application designed to h
 ### Test Case 1: Valid Input
 - MID 1: Objective (8), Descriptive (12), Assignment (4)
 - MID 2: Objective (9), Descriptive (13), Assignment (5)
-- Expected Result: Internal Marks (>= 40)
+- Expected Result: Internal Marks (40.5)
 
 ### Test Case 2: Invalid Input (Out of Range)
 - MID 1: Objective (11), Descriptive (16), Assignment (6)
@@ -48,7 +48,7 @@ The SRGEC R20 Batch Internal Marks Calculator is a web application designed to h
 ### Test Case 4: Edge Case (Maximum Marks)
 - MID 1: Objective (10), Descriptive (15), Assignment (5)
 - MID 2: Objective (10), Descriptive (15), Assignment (5)
-- Expected Result: Internal Marks (100)
+- Expected Result: Internal Marks (40)
 
 ### Test Case 5: Edge Case (Minimum Marks)
 - MID 1: Objective (0), Descriptive (0), Assignment (0)
@@ -58,7 +58,7 @@ The SRGEC R20 Batch Internal Marks Calculator is a web application designed to h
 ### Test Case 6: Edge Case (Equal Marks)
 - MID 1: Objective (5), Descriptive (7), Assignment (3)
 - MID 2: Objective (5), Descriptive (7), Assignment (3)
-- Expected Result: Internal Marks (50)
+- Expected Result: Internal Marks (30)
 
 ### Test Case 7: Invalid Input (Negative Marks)
 - MID 1: Objective (-1), Descriptive (12), Assignment (4)
@@ -68,7 +68,7 @@ The SRGEC R20 Batch Internal Marks Calculator is a web application designed to h
 ### Test Case 8: Edge Case (Maximum Marks in One MID)
 - MID 1: Objective (10), Descriptive (15), Assignment (5)
 - MID 2: Objective (0), Descriptive (0), Assignment (0)
-- Expected Result: Internal Marks (50)
+- Expected Result: Internal Marks (25)
 
 ### Test Case 9: Edge Case (Minimum Marks in One MID)
 - MID 1: Objective (0), Descriptive (0), Assignment (0)
@@ -78,7 +78,7 @@ The SRGEC R20 Batch Internal Marks Calculator is a web application designed to h
 ### Test Case 10: Random Input
 - MID 1: Objective (7), Descriptive (11), Assignment (2)
 - MID 2: Objective (8), Descriptive (14), Assignment (4)
-- Expected Result: Internal Marks (>= 40)
+- Expected Result: Internal Marks (39.5)
 
 ## Conclusion
 The SRGEC R20 Batch Internal Marks Calculator simplifies the process of calculating internal marks for students, providing immediate feedback and enhancing the academic assessment experience. 
@@ -89,4 +89,3 @@ The SRGEC R20 Batch Internal Marks Calculator simplifies the process of calculat
 - Add features for saving and exporting results.
 - Optimize for mobile devices.
 - Implement user authentication for data management.
-

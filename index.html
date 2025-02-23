@@ -2,25 +2,29 @@
 <html>
 
 <head>
+  <!-- Link to Bootstrap CSS for styling -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
+  <!-- Link to custom CSS file -->
   <link rel="stylesheet" href="index.css">
 
 </head>
 
 <body>
 
+  <!-- Page title -->
   <h1>SRGEC R20 BATCH INTERNAL MARKS CALCULATOR</h1>
 
-  <table class="d-flex justify-content-center  table-responsive edecurve ">
+  <!-- Table for input fields and buttons -->
+  <table class="d-flex justify-content-center table-responsive edecurve">
     <tr>
       <td colspan="2"><strong>MID 1</strong></td>
       <td colspan="2"><strong>MID 2</strong></td>
     </tr>
     <tr>
       <td>Obj 1:</td>
-      <td><input type="text" id="obj1"  placeholder="range(0-10)"></td>
+      <td><input type="text" id="obj1" placeholder="range(0-10)"></td>
       <td>Obj 2:</td>
       <td><input type="text" id="obj2" placeholder="range(0-10)"></td>
     </tr>
@@ -37,29 +41,30 @@
       <td><input type="text" id="assign2" placeholder="range(0-5)"></td>
     </tr>
     <tr>
-      <td colspan="4"><button type="button" class="btn btn-success d-flex align-self-center"
-          onclick="calculateInternalMarks()">Calculate
+      <td colspan="4">
+        <!-- Button to calculate internal marks -->
+        <button type="button" class="btn btn-success d-flex align-self-center" onclick="calculateInternalMarks()">Calculate
           Internal Marks <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-pen" viewBox="0 0 16 16">
             <path
               d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
-          </svg><i class="fa-regular fa-calculator"></i></button></td>
+          </svg><i class="fa-regular fa-calculator"></i></button>
+      </td>
     </tr>
     <tr>
       <td colspan="5">
+        <!-- Button to reset the form -->
         <button type="reset" class="btn btn-warning d-flex align-self-center" onclick="resetForm()">Reset</button>
       </td>
     </tr>
   </table>
-  <div class="card">
-    <div class="card-body">
-      <p class="d-flex justify-content-center table-responsive card-header table-success" id="result"></p>
-    </div>
-  </div>
 
-  
+  <!-- Element to display the result -->
+  <p class="d-flex justify-content-center table-responsive card-header table-success" id="result"></p>
 
-  <script>function calculateInternalMarks() {
+  <script>
+    // Function to calculate internal marks
+    function calculateInternalMarks() {
       // Read input from user
       var obj1 = parseFloat(document.getElementById("obj1").value);
       var des1 = parseFloat(document.getElementById("des1").value);
@@ -93,10 +98,9 @@
         document.getElementById("result").innerHTML = "Error: Assign 2 is out of range or not a number.";
         return;
       }
+
       // Calculate MID 1 and MID 2
-      // obj1 /= 2;
       var mid1 = obj1 + des1 + assign1;
-      // obj2 /= 2;
       var mid2 = obj2 + des2 + assign2;
 
       // Calculate best and least MID
@@ -128,13 +132,11 @@
       resultTable += '<tr><td>Ceil Final Internal Marks</td><td colspan="2">' + ceil_final_internal_marks.toFixed(1) + '</td></tr>';
       resultTable += '</table>';
 
-
       // Set the result table as the inner HTML of the result element
       document.getElementById("result").innerHTML = resultTable;
-
-
     }
 
+    // Function to reset the form
     function resetForm() {
       document.getElementById("obj1").value = "";
       document.getElementById("des1").value = "";
