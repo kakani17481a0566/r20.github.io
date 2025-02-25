@@ -73,29 +73,32 @@
       var des2 = parseFloat(document.getElementById("des2").value);
       var assign2 = parseFloat(document.getElementById("assign2").value);
 
+      // Initialize an array to store error messages
+      var errors = [];
+
       // Check that values are in range
       if (isNaN(obj1) || obj1 < 0 || obj1 > 10) {
-        document.getElementById("result").innerHTML = "Error: Obj 1 is out of range or not a number.";
-        return;
+        errors.push("Error: Obj 1 is out of range or not a number.");
       }
       if (isNaN(des1) || des1 < 0 || des1 > 15) {
-        document.getElementById("result").innerHTML = "Error: Des 1 is out of range or not a number.";
-        return;
+        errors.push("Error: Des 1 is out of range or not a number.");
       }
       if (isNaN(assign1) || assign1 < 0 || assign1 > 5) {
-        document.getElementById("result").innerHTML = "Error: Assign 1 is out of range or not a number.";
-        return;
+        errors.push("Error: Assign 1 is out of range or not a number.");
       }
       if (isNaN(obj2) || obj2 < 0 || obj2 > 10) {
-        document.getElementById("result").innerHTML = "Error: Obj 2 is out of range or not a number.";
-        return;
+        errors.push("Error: Obj 2 is out of range or not a number.");
       }
       if (isNaN(des2) || des2 < 0 || des2 > 15) {
-        document.getElementById("result").innerHTML = "Error: Des 2 is out of range or not a number.";
-        return;
+        errors.push("Error: Des 2 is out of range or not a number.");
       }
       if (isNaN(assign2) || assign2 < 0 || assign2 > 5) {
-        document.getElementById("result").innerHTML = "Error: Assign 2 is out of range or not a number.";
+        errors.push("Error: Assign 2 is out of range or not a number.");
+      }
+
+      // If there are any errors, display them and return
+      if (errors.length > 0) {
+        document.getElementById("result").innerHTML = errors.join("<br>");
         return;
       }
 
