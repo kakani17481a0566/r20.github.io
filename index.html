@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -34,22 +35,14 @@
       <td><input type="text" id="assign2" placeholder="range(0-5)"></td>
     </tr>
     <tr>
-      <td colspan="4">
-        <button type="button" class="btn btn-success d-flex align-self-center" onclick="calculateInternalMarks()">Calculate Internal Marks</button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        <button type="reset" class="btn btn-warning d-flex align-self-center" onclick="resetForm()">Reset</button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="5">
-        <button type="button" class="btn btn-info d-flex align-self-center" id="exportButton" onclick="exportToCSV()" disabled>Export to CSV</button>
+      <td colspan="4" class="text-center">
+      <button type="button" class="btn btn-success" onclick="calculateInternalMarks()">Calculate Internal Marks</button>
+      <button type="reset" class="btn btn-warning" onclick="resetForm()">Reset</button>
+      <button type="button" class="btn btn-info" id="exportButton" onclick="exportToCSV()" disabled>Export to CSV</button>
+      <button type="button" class="btn btn-primary" id="exportPdfButton" onclick="exportToPDF()" disabled>Export to PDF</button>
       </td>
     </tr>
   </table>
-
 
   <table id="errorMessages" style="color: rgb(255, 255, 255); font-weight: bold; text-align: center; margin-top: 10px; width: 100%;"></table>
 
@@ -105,6 +98,7 @@
       if (errors.length > 0) {
         document.getElementById("result").innerHTML = errors.join("<br>");
         document.getElementById("exportButton").disabled = true;
+        document.getElementById("exportPdfButton").disabled = true;
         return;
       }
 
@@ -133,6 +127,7 @@
 
       document.getElementById("result").innerHTML = resultTable;
       document.getElementById("exportButton").disabled = false;
+      document.getElementById("exportPdfButton").disabled = false;
     }
 
     function resetForm() {
@@ -143,7 +138,9 @@
       document.getElementById("des2").value = "";
       document.getElementById("assign2").value = "";
       document.getElementById("result").innerHTML = "";
+      document.getElementById("errorMessages").innerHTML = "";
       document.getElementById("exportButton").disabled = true;
+      document.getElementById("exportPdfButton").disabled = true;
     }
 
     function exportToCSV() {
@@ -153,6 +150,11 @@
       var obj2 = document.getElementById("obj2").value;
       var des2 = document.getElementById("des2").value;
       var assign2 = document.getElementById("assign2").value;
+
+      if (!obj1 || !des1 || !assign1 || !obj2 || !des2 || !assign2) {
+        alert("Please fill in all fields before exporting.");
+        return;
+      }
 
       var csvContent = "data:text/csv;charset=utf-8,";
       csvContent += "MID,MID 1,MID 2\n";
@@ -184,6 +186,54 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    }
+
+    function exportToPDF() {
+      var { jsPDF } = window.jspdf;
+      var doc = new jsPDF();
+
+      var obj1 = document.getElementById("obj1").value;
+      var des1 = document.getElementById("des1").value;
+      var assign1 = document.getElementById("assign1").value;
+      var obj2 = document.getElementById("obj2").value;
+      var des2 = document.getElementById("des2").value;
+      var assign2 = document.getElementById("assign2").value;
+
+      if (!obj1 || !des1 || !assign1 || !obj2 || !des2 || !assign2) {
+        alert("Please fill in all fields before exporting.");
+        return;
+      }
+
+      var mid1 = parseFloat(obj1) + parseFloat(des1) + parseFloat(assign1);
+      var mid2 = parseFloat(obj2) + parseFloat(des2) + parseFloat(assign2);
+      var best_mid = Math.max(mid1, mid2);
+      var least_mid = Math.min(mid1, mid2);
+      var mid_80 = 0.8 * best_mid;
+      var mid_20 = 0.2 * least_mid;
+      var final_internal_marks = mid_80 + mid_20;
+      var ceil_final_internal_marks = Math.ceil(final_internal_marks);
+
+      var resultTable = [
+        ["MID", "MID 1", "MID 2"],
+        ["OBJ", obj1, obj2],
+        ["DES", des1, des2],
+        ["ASSIGN", assign1, assign2],
+        ["SUM OF OBJ + DES + Assign", mid1, mid2],
+        ["Best MID", best_mid],
+        ["Least MID", least_mid],
+        ["80% of Best MID", mid_80.toFixed(1)],
+        ["20% of Least MID", mid_20.toFixed(1)],
+        ["Final Internal Marks", final_internal_marks.toFixed(1)],
+        ["Ceil Final Internal Marks", ceil_final_internal_marks.toFixed(1)]
+      ];
+
+      resultTable.forEach(function (row, i) {
+        row.forEach(function (cell, j) {
+          doc.text(cell.toString(), 10 + j * 50, 10 + i * 10);
+        });
+      });
+
+      doc.save("internal_marks.pdf");
     }
   </script>
 </body>
