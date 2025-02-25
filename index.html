@@ -65,8 +65,10 @@
     </tr>
   </table>
 
-  <!-- Element to display the result -->
-  <p class="d-flex justify-content-center table-responsive card-header table-success" id="result"></p>
+  <!-- Element to display error messages -->
+  <div id="errorMessages" style="display: flex; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;"></div>
+
+
 
   <script>
     // Function to calculate internal marks
@@ -84,27 +86,45 @@
 
       // Check that values are in range
       if (isNaN(obj1) || obj1 < 0 || obj1 > 10) {
-        errors.push('<div id="error-obj1">Error: Obj 1 is out of range or not a number (range: 0-10).</div>');
+        errors.push('Obj 1 is out of range (0-10).');
+        document.getElementById("obj1").style.borderColor = "red";
+      } else {
+        document.getElementById("obj1").style.borderColor = "";
       }
       if (isNaN(des1) || des1 < 0 || des1 > 15) {
-        errors.push('<div id="error-des1">Error: Des 1 is out of range or not a number (range: 0-15).</div>');
+        errors.push('Des 1 is out of range (0-15).');
+        document.getElementById("des1").style.borderColor = "red";
+      } else {
+        document.getElementById("des1").style.borderColor = "";
       }
       if (isNaN(assign1) || assign1 < 0 || assign1 > 5) {
-        errors.push('<div id="error-assign1">Error: Assign 1 is out of range or not a number (range: 0-5).</div>');
+        errors.push('Assign 1 is out of range (0-5).');
+        document.getElementById("assign1").style.borderColor = "red";
+      } else {
+        document.getElementById("assign1").style.borderColor = "";
       }
       if (isNaN(obj2) || obj2 < 0 || obj2 > 10) {
-        errors.push('<div id="error-obj2">Error: Obj 2 is out of range or not a number (range: 0-10).</div>');
+        errors.push('Obj 2 is out of range (0-10).');
+        document.getElementById("obj2").style.borderColor = "red";
+      } else {
+        document.getElementById("obj2").style.borderColor = "";
       }
       if (isNaN(des2) || des2 < 0 || des2 > 15) {
-        errors.push('<div id="error-des2">Error: Des 2 is out of range or not a number (range: 0-15).</div>');
+        errors.push('Des 2 is out of range (0-15).');
+        document.getElementById("des2").style.borderColor = "red";
+      } else {
+        document.getElementById("des2").style.borderColor = "";
       }
       if (isNaN(assign2) || assign2 < 0 || assign2 > 5) {
-        errors.push('<div id="error-assign2">Error: Assign 2 is out of range or not a number (range: 0-5).</div>');
+        errors.push('Assign 2 is out of range (0-5).');
+        document.getElementById("assign2").style.borderColor = "red";
+      } else {
+        document.getElementById("assign2").style.borderColor = "";
       }
-
+        document.getElementById("errorMessages").innerHTML = errors.join("<br>");
       // If there are any errors, display them and return
       if (errors.length > 0) {
-        document.getElementById("result").innerHTML = '<div class="alert alert-danger" role="alert">' + errors.join("<br>") + '</div>';
+        document.getElementById("result").innerHTML = errors.join("<br>");
         document.getElementById("exportButton").disabled = true;
         return;
       }
