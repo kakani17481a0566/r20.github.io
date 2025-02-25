@@ -57,6 +57,12 @@
         <button type="reset" class="btn btn-warning d-flex align-self-center" onclick="resetForm()">Reset</button>
       </td>
     </tr>
+    <tr>
+      <td colspan="5">
+        <!-- Button to export results as CSV -->
+        <button type="button" class="btn btn-info d-flex align-self-center" id="exportButton" onclick="exportToCSV()" disabled>Export to CSV</button>
+      </td>
+    </tr>
   </table>
 
   <!-- Element to display the result -->
@@ -78,27 +84,28 @@
 
       // Check that values are in range
       if (isNaN(obj1) || obj1 < 0 || obj1 > 10) {
-        errors.push("Error: Obj 1 is out of range or not a number.");
+        errors.push("Error: Obj 1 is out of range or not a number (range: 0-10).");
       }
       if (isNaN(des1) || des1 < 0 || des1 > 15) {
-        errors.push("Error: Des 1 is out of range or not a number.");
+        errors.push("Error: Des 1 is out of range or not a number (range: 0-15).");
       }
       if (isNaN(assign1) || assign1 < 0 || assign1 > 5) {
-        errors.push("Error: Assign 1 is out of range or not a number.");
+        errors.push("Error: Assign 1 is out of range or not a number (range: 0-5).");
       }
       if (isNaN(obj2) || obj2 < 0 || obj2 > 10) {
-        errors.push("Error: Obj 2 is out of range or not a number.");
+        errors.push("Error: Obj 2 is out of range or not a number (range: 0-10).");
       }
       if (isNaN(des2) || des2 < 0 || des2 > 15) {
-        errors.push("Error: Des 2 is out of range or not a number.");
+        errors.push("Error: Des 2 is out of range or not a number (range: 0-15).");
       }
       if (isNaN(assign2) || assign2 < 0 || assign2 > 5) {
-        errors.push("Error: Assign 2 is out of range or not a number.");
+        errors.push("Error: Assign 2 is out of range or not a number (range: 0-5).");
       }
 
       // If there are any errors, display them and return
       if (errors.length > 0) {
         document.getElementById("result").innerHTML = errors.join("<br>");
+        document.getElementById("exportButton").disabled = true;
         return;
       }
 
@@ -137,6 +144,9 @@
 
       // Set the result table as the inner HTML of the result element
       document.getElementById("result").innerHTML = resultTable;
+
+      // Enable the export button
+      document.getElementById("exportButton").disabled = false;
     }
 
     // Function to reset the form
@@ -148,6 +158,48 @@
       document.getElementById("des2").value = "";
       document.getElementById("assign2").value = "";
       document.getElementById("result").innerHTML = "";
+      document.getElementById("exportButton").disabled = true;
+    }
+
+    // Function to export results to CSV
+    function exportToCSV() {
+      var obj1 = document.getElementById("obj1").value;
+      var des1 = document.getElementById("des1").value;
+      var assign1 = document.getElementById("assign1").value;
+      var obj2 = document.getElementById("obj2").value;
+      var des2 = document.getElementById("des2").value;
+      var assign2 = document.getElementById("assign2").value;
+
+      var csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += "MID,MID 1,MID 2\n";
+      csvContent += "OBJ," + obj1 + "," + obj2 + "\n";
+      csvContent += "DES," + des1 + "," + des2 + "\n";
+      csvContent += "ASSIGN," + assign1 + "," + assign2 + "\n";
+
+      var mid1 = parseFloat(obj1) + parseFloat(des1) + parseFloat(assign1);
+      var mid2 = parseFloat(obj2) + parseFloat(des2) + parseFloat(assign2);
+      var best_mid = Math.max(mid1, mid2);
+      var least_mid = Math.min(mid1, mid2);
+      var mid_80 = 0.8 * best_mid;
+      var mid_20 = 0.2 * least_mid;
+      var final_internal_marks = mid_80 + mid_20;
+      var ceil_final_internal_marks = Math.ceil(final_internal_marks);
+
+      csvContent += "SUM OF OBJ + DES + Assign," + mid1 + "," + mid2 + "\n";
+      csvContent += "Best MID," + best_mid + "\n";
+      csvContent += "Least MID," + least_mid + "\n";
+      csvContent += "80% of Best MID," + mid_80.toFixed(1) + "\n";
+      csvContent += "20% of Least MID," + mid_20.toFixed(1) + "\n";
+      csvContent += "Final Internal Marks," + final_internal_marks.toFixed(1) + "\n";
+      csvContent += "Ceil Final Internal Marks," + ceil_final_internal_marks.toFixed(1) + "\n";
+
+      var encodedUri = encodeURI(csvContent);
+      var link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "internal_marks.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   </script>
 
