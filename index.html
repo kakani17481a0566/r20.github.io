@@ -110,19 +110,18 @@
       var mid_20 = 0.2 * least_mid;
       var final_internal_marks = mid_80 + mid_20;
       var ceil_final_internal_marks = Math.ceil(final_internal_marks);
-
-      var resultTable = '<table>';
+      var resultTable = '<table id="resultTable">';
       resultTable += '<tr><th>MID</th><th>MID 1</th><th>MID 2</th></tr>';
-      resultTable += '<tr><td>OBJ</td><td>' + obj1 + '</td><td>' + obj2 + '</td></tr>';
-      resultTable += '<tr><td>DES</td><td>' + des1 + '</td><td>' + des2 + '</td></tr>';
-      resultTable += '<tr><td>ASSIGN</td><td>' + assign1 + '</td><td>' + assign2 + '</td></tr>';
-      resultTable += '<tr><td>SUM OF OBJ + DES + Assign </td><td>' + mid1 + '</td><td>' + mid2 + '</td></tr>';
-      resultTable += '<tr><td>Best MID</td><td colspan="2">' + best_mid + '</td></tr>';
-      resultTable += '<tr><td>Least MID</td><td colspan="2">' + least_mid + '</td></tr>';
-      resultTable += '<tr><td>80% of Best MID</td><td colspan="2">' + mid_80.toFixed(1) + '</td></tr>';
-      resultTable += '<tr><td>20% of Least MID</td><td colspan="2">' + mid_20.toFixed(1) + '</td></tr>';
-      resultTable += '<tr><td>Final Internal Marks</td><td colspan="2">' + final_internal_marks.toFixed(1) + '</td></tr>';
-      resultTable += '<tr><td>Ceil Final Internal Marks</td><td colspan="2">' + ceil_final_internal_marks.toFixed(1) + '</td></tr>';
+      resultTable += '<tr><td id="labelObj">OBJ</td><td id="obj1Result">' + obj1 + '</td><td id="obj2Result">' + obj2 + '</td></tr>';
+      resultTable += '<tr><td id="labelDes">DES</td><td id="des1Result">' + des1 + '</td><td id="des2Result">' + des2 + '</td></tr>';
+      resultTable += '<tr><td id="labelAssign">ASSIGN</td><td id="assign1Result">' + assign1 + '</td><td id="assign2Result">' + assign2 + '</td></tr>';
+      resultTable += '<tr><td id="labelSum">SUM OF OBJ + DES + Assign</td><td id="mid1Result">' + mid1 + '</td><td id="mid2Result">' + mid2 + '</td></tr>';
+      resultTable += '<tr><td id="labelBestMid">Best MID</td><td colspan="2" id="bestMidResult">' + best_mid + '</td></tr>';
+      resultTable += '<tr><td id="labelLeastMid">Least MID</td><td colspan="2" id="leastMidResult">' + least_mid + '</td></tr>';
+      resultTable += '<tr><td id="labelMid80">80% of Best MID</td><td colspan="2" id="mid80Result">' + mid_80.toFixed(1) + '</td></tr>';
+      resultTable += '<tr><td id="labelMid20">20% of Least MID</td><td colspan="2" id="mid20Result">' + mid_20.toFixed(1) + '</td></tr>';
+      resultTable += '<tr><td id="labelFinalInternalMarks">Final Internal Marks</td><td colspan="2" id="finalInternalMarksResult">' + final_internal_marks.toFixed(1) + '</td></tr>';
+      resultTable += '<tr><td id="labelCeilFinalInternalMarks">Ceil Final Internal Marks</td><td colspan="2" id="ceilFinalInternalMarksResult">' + ceil_final_internal_marks.toFixed(1) + '</td></tr>';
       resultTable += '</table>';
 
       document.getElementById("result").innerHTML = resultTable;
