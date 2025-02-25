@@ -84,27 +84,27 @@
 
       // Check that values are in range
       if (isNaN(obj1) || obj1 < 0 || obj1 > 10) {
-        errors.push("Error: Obj 1 is out of range or not a number (range: 0-10).");
+        errors.push('<div id="error-obj1">Error: Obj 1 is out of range or not a number (range: 0-10).</div>');
       }
       if (isNaN(des1) || des1 < 0 || des1 > 15) {
-        errors.push("Error: Des 1 is out of range or not a number (range: 0-15).");
+        errors.push('<div id="error-des1">Error: Des 1 is out of range or not a number (range: 0-15).</div>');
       }
       if (isNaN(assign1) || assign1 < 0 || assign1 > 5) {
-        errors.push("Error: Assign 1 is out of range or not a number (range: 0-5).");
+        errors.push('<div id="error-assign1">Error: Assign 1 is out of range or not a number (range: 0-5).</div>');
       }
       if (isNaN(obj2) || obj2 < 0 || obj2 > 10) {
-        errors.push("Error: Obj 2 is out of range or not a number (range: 0-10).");
+        errors.push('<div id="error-obj2">Error: Obj 2 is out of range or not a number (range: 0-10).</div>');
       }
       if (isNaN(des2) || des2 < 0 || des2 > 15) {
-        errors.push("Error: Des 2 is out of range or not a number (range: 0-15).");
+        errors.push('<div id="error-des2">Error: Des 2 is out of range or not a number (range: 0-15).</div>');
       }
       if (isNaN(assign2) || assign2 < 0 || assign2 > 5) {
-        errors.push("Error: Assign 2 is out of range or not a number (range: 0-5).");
+        errors.push('<div id="error-assign2">Error: Assign 2 is out of range or not a number (range: 0-5).</div>');
       }
 
       // If there are any errors, display them and return
       if (errors.length > 0) {
-        document.getElementById("result").innerHTML = errors.join("<br>");
+        document.getElementById("result").innerHTML = '<div class="alert alert-danger" role="alert">' + errors.join("<br>") + '</div>';
         document.getElementById("exportButton").disabled = true;
         return;
       }
