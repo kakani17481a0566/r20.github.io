@@ -7,6 +7,8 @@
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="index.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
 </head>
 
 <body>
@@ -191,53 +193,37 @@
       document.body.removeChild(link);
     }
 
-    function exportToPDF() {
-      var { jsPDF } = window.jspdf;
-      var doc = new jsPDF();
+function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-      var obj1 = document.getElementById("obj1").value;
-      var des1 = document.getElementById("des1").value;
-      var assign1 = document.getElementById("assign1").value;
-      var obj2 = document.getElementById("obj2").value;
-      var des2 = document.getElementById("des2").value;
-      var assign2 = document.getElementById("assign2").value;
+  doc.setFontSize(16);
+  doc.text("SRGEC R20 Internal Marks Report", 20, 10);
 
-      if (!obj1 || !des1 || !assign1 || !obj2 || !des2 || !assign2) {
-        alert("Please fill in all fields before exporting.");
-        return;
-      }
+  const tableData = [
+    ["MID", "MID 1", "MID 2"],
+    ["OBJ", document.getElementById("obj1Result").innerText, document.getElementById("obj2Result").innerText],
+    ["DES", document.getElementById("des1Result").innerText, document.getElementById("des2Result").innerText],
+    ["ASSIGN", document.getElementById("assign1Result").innerText, document.getElementById("assign2Result").innerText],
+    ["SUM (OBJ+DES+ASSIGN)", document.getElementById("mid1Result").innerText, document.getElementById("mid2Result").innerText],
+    ["Best MID", document.getElementById("bestMidResult").innerText, ""],
+    ["Least MID", document.getElementById("leastMidResult").innerText, ""],
+    ["80% of Best MID", document.getElementById("mid80Result").innerText, ""],
+    ["20% of Least MID", document.getElementById("mid20Result").innerText, ""],
+    ["Final Internal Marks", document.getElementById("finalInternalMarksResult").innerText, ""],
+    ["Ceil Final Internal Marks", document.getElementById("ceilFinalInternalMarksResult").innerText, ""]
+  ];
 
-      var mid1 = parseFloat(obj1) + parseFloat(des1) + parseFloat(assign1);
-      var mid2 = parseFloat(obj2) + parseFloat(des2) + parseFloat(assign2);
-      var best_mid = Math.max(mid1, mid2);
-      var least_mid = Math.min(mid1, mid2);
-      var mid_80 = 0.8 * best_mid;
-      var mid_20 = 0.2 * least_mid;
-      var final_internal_marks = mid_80 + mid_20;
-      var ceil_final_internal_marks = Math.ceil(final_internal_marks);
+  doc.autoTable({
+    startY: 20,
+    head: [["Parameter", "Value 1", "Value 2"]],
+    body: tableData,
+    theme: "striped"
+  });
 
-      var resultTable = [
-        ["MID", "MID 1", "MID 2"],
-        ["OBJ", obj1, obj2],
-        ["DES", des1, des2],
-        ["ASSIGN", assign1, assign2],
-        ["SUM OF OBJ + DES + Assign", mid1, mid2],
-        ["Best MID", best_mid],
-        ["Least MID", least_mid],
-        ["80% of Best MID", mid_80.toFixed(1)],
-        ["20% of Least MID", mid_20.toFixed(1)],
-        ["Final Internal Marks", final_internal_marks.toFixed(1)],
-        ["Ceil Final Internal Marks", ceil_final_internal_marks.toFixed(1)]
-      ];
+  doc.save("Internal_Marks_Report.pdf");
+}
 
-      resultTable.forEach(function (row, i) {
-        row.forEach(function (cell, j) {
-          doc.text(cell.toString(), 10 + j * 50, 10 + i * 10);
-        });
-      });
-
-      doc.save("internal_marks.pdf");
-    }
   </script>
 </body>
 
