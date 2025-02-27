@@ -1,15 +1,11 @@
 /* Add a black background color to the body */
 /* Style the body element */
 body {
-  font-family: "Times New Roman", cursive;
+  font-family: "Times New Roman", serif;
   color: white;
-  background: #AA076B;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #61045F, #AA076B);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #61045F, #AA076B);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: black;
 }
+
 
 /* Style the h1 element */
 h1 {
