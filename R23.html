@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Internal Marks Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<style>
+    input {
+        width: 10%; /* Adjust the width of the input field */
+        height: 50px; /* Adjust the height (breadth) of the input field */
+        padding: 10px; /* Adjust padding for better visibility */
+        font-size: 16px; /* Optional: Increase font size for better readability */
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-dark p-3">
+        <div class="container-fluid d-flex flex-column align-items-center">
+            <div class="d-flex gap-4">
+                <button onclick="location.href='index.html'" id="btn-Home" class="btn custom-btn">Home</button>
+                <button onclick="location.href='R20.html'" id="btn-r20" class="btn custom-btn">R20</button>
+                <button onclick="location.href='R23.html'" id="btn-r23" class="btn custom-btn">R23</button>
+                <button id="btn-MBA" class="btn custom-btn">MBA</button>
+            </div>
+        </div>
+    </nav>
+
+    <h1>SRGEC R20 BATCH INTERNAL MARKS CALCULATOR</h1>
+
+    <table class="d-flex justify-content-center table-responsive edecurve">
+        <tr>
+            <td colspan="2"><strong>cycle 1</strong></td>
+            <td colspan="2"><strong>cycle 2</strong></td>
+          </tr>
+        <tr>
+            <td>Mid 1:</td>
+            <td><input type="number" id="MID1" class="marksInput" placeholder="range(0-30)"></td>
+            <td>Mid 2:</td>
+            <td><input type="number" id="MID2" class="marksInput" placeholder="range(0-30)"></td>
+        </tr>
+        <tr>
+            <td>MCQ 1:</td>
+            <td><input type="number" id="MCQ1" class="marksInput" placeholder="range(0-10)"></td>
+            <td>MCQ 2:</td>
+            <td><input type="number" id="MCQ2" class="marksInput" placeholder="range(0-10)"></td>
+        </tr>
+        <tr>
+            <td>Assign 1:</td>
+            <td><input type="number" id="assign1" class="marksInput" placeholder="range(0-5)"></td>
+            <td>Assign 2:</td>
+            <td><input type="number" id="assign2" class="marksInput" placeholder="range(0-5)"></td>
+        </tr>
+        
+        <tr>
+            <td colspan="4" class="text-center">
+                <button type="button" class="btn btn-success" onclick="calculateInternalMarks()" style="font-size: 16px; padding: 10px 20px;">Calculate Internal Marks</button>
+                <button type="reset" class="btn btn-warning" onclick="resetForm()" style="font-size: 16px; padding: 10px 20px;">Reset</button>
+                <button type="button" class="btn btn-info" id="exportButton" onclick="exportToCSV()" disabled style="font-size: 16px; padding: 10px 20px;">Export to CSV</button>
+                <button type="button" class="btn btn-primary" id="exportPdfButton" onclick="exportToPDF()" disabled style="font-size: 16px; padding: 10px 20px;">Export to PDF</button>
+            </td>
+        </tr>
+    </table>
+    
+
+    <table id="errorMessages"
+        style="color: rgb(255, 255, 255); font-weight: bold; text-align: center; margin-top: 10px; width: 100%;">
+    </table>
+    <div id="result" style="margin-top: 20px;"></div>
+
+    <script>
+        function calculateInternalMarks() {
+            var MID1 = parseFloat(document.getElementById("MID1").value);
+            var MID2 = parseFloat(document.getElementById("MID2").value);
+            var MCQ1 = parseFloat(document.getElementById("MCQ1").value);
+            var MCQ2 = parseFloat(document.getElementById("MCQ2").value);
+            var assign1 = parseFloat(document.getElementById("assign1").value);
+            var assign2 = parseFloat(document.getElementById("assign2").value);
+
+            var errors = [];
+
+            // Validation checks
+            if (isNaN(MID1) || MID1 < 0 || MID1 > 30) {
+                errors.push("MID1 is out of range (0-30).");
+                document.getElementById("MID1").style.borderColor = "red";
+            } else {
+                document.getElementById("MID1").style.borderColor = "";
+            }
+
+            if (isNaN(MID2) || MID2 < 0 || MID2 > 30) {
+                errors.push("MID2 is out of range (0-30).");
+                document.getElementById("MID2").style.borderColor = "red";
+            } else {
+                document.getElementById("MID2").style.borderColor = "";
+            }
+
+            if (isNaN(MCQ1) || MCQ1 < 0 || MCQ1 > 10) {
+                errors.push("MCQ1 is out of range (0-10).");
+                document.getElementById("MCQ1").style.borderColor = "red";
+            } else {
+                document.getElementById("MCQ1").style.borderColor = "";
+            }
+
+            if (isNaN(MCQ2) || MCQ2 < 0 || MCQ2 > 10) {
+                errors.push("MCQ2 is out of range (0-10).");
+                document.getElementById("MCQ2").style.borderColor = "red";
+            } else {
+                document.getElementById("MCQ2").style.borderColor = "";
+            }
+
+            if (isNaN(assign1) || assign1 < 0 || assign1 > 5) {
+                errors.push("Assignment 1 is out of range (0-5).");
+                document.getElementById("assign1").style.borderColor = "red";
+            } else {
+                document.getElementById("assign1").style.borderColor = "";
+            }
+
+            if (isNaN(assign2) || assign2 < 0 || assign2 > 5) {
+                errors.push("Assignment 2 is out of range (0-5).");
+                document.getElementById("assign2").style.borderColor = "red";
+            } else {
+                document.getElementById("assign2").style.borderColor = "";
+            }
+
+            // Display errors
+            document.getElementById("errorMessages").innerHTML = errors.join("<br>");
+
+            // If there are errors, stop calculation
+            if (errors.length > 0) {
+                document.getElementById("result").innerHTML = "";
+                document.getElementById("exportButton").disabled = true;
+                document.getElementById("exportPdfButton").disabled = true;
+                return;
+            }
+
+            // Calculation of final marks
+            var midAverage = ((MID1 / 2) + (MID2 / 2)) / 2;
+            var mcqAverage = ((MCQ1 + MCQ2) / 2);
+            var assignmentAverage = ((assign1 + assign2) / 2);
+            var marks = midAverage + mcqAverage + assignmentAverage;
+            var finalMarks = marks.toFixed(2);
+
+            // Detailed breakdown result in table format
+            var resultHTML = `
+    
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Calculation</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Midterm Marks Average</td>
+                            <td>(${MID1} / 2) + (${MID2} / 2) / 2</td>
+                            <td>${midAverage.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>MCQ Marks Average</td>
+                            <td>(${MCQ1} + ${MCQ2}) / 2</td>
+                            <td>${mcqAverage.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Assignment Marks Average</td>
+                            <td>(${assign1} + ${assign2}) / 2</td>
+                            <td>${assignmentAverage.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Internal Marks</td>
+                            <td>Midterm + MCQ + Assignment Average</td>
+                            <td>${finalMarks}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            // Display detailed result
+            document.getElementById("result").innerHTML = resultHTML;
+            document.getElementById("exportButton").disabled = false;
+            document.getElementById("exportPdfButton").disabled = false;
+        }
+
+        function resetForm() {
+            document.getElementById("MID1").value = "";
+            document.getElementById("MID2").value = "";
+            document.getElementById("MCQ1").value = "";
+            document.getElementById("MCQ2").value = "";
+            document.getElementById("assign1").value = "";
+            document.getElementById("assign2").value = "";
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("errorMessages").innerHTML = "";
+            document.getElementById("exportButton").disabled = true;
+            document.getElementById("exportPdfButton").disabled = true;
+        }
+
+        function exportToCSV() {
+    var MID1 = document.getElementById("MID1").value;
+    var MID2 = document.getElementById("MID2").value;
+    var MCQ1 = document.getElementById("MCQ1").value;
+    var MCQ2 = document.getElementById("MCQ2").value;
+    var assign1 = document.getElementById("assign1").value;
+    var assign2 = document.getElementById("assign2").value;
+
+    // Check if all fields are filled
+    if (!MID1 || !MID2 || !MCQ1 || !MCQ2 || !assign1 || !assign2) {
+        alert("Please fill in all fields before exporting.");
+        return;
+    }
+
+    // Final marks (calculated earlier in the function)
+    var MID1 = parseFloat(MID1);
+    var MID2 = parseFloat(MID2);
+    var MCQ1 = parseFloat(MCQ1);
+    var MCQ2 = parseFloat(MCQ2);
+    var assign1 = parseFloat(assign1);
+    var assign2 = parseFloat(assign2);
+
+    var midAverage = ((MID1 / 2) + (MID2 / 2)) / 2;
+    var mcqAverage = ((MCQ1 + MCQ2) / 2);
+    var assignmentAverage = ((assign1 + assign2) / 2);
+    var marks = midAverage + mcqAverage + assignmentAverage;
+    var finalMarks = marks.toFixed(2);
+
+    // Create CSV content including final marks
+    var csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "MID 1,MID 2,MCQ 1,MCQ 2,Assignment 1,Assignment 2,Total Internal Marks\n"; // Add header for final marks
+    csvContent += `${MID1},${MID2},${MCQ1},${MCQ2},${assign1},${assign2},${finalMarks}\n`; // Add values + final marks
+
+    // Create link to download CSV file
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "internal_marks.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            var finalMarks = document.getElementById("result").innerText.split("\n")[4].replace("Total Internal Marks:", "").trim();
+
+            doc.setFontSize(16);
+            doc.text("SRGEC R23 Internal Marks Report", 20, 10);
+
+            const tableData = [
+                ["Parameter", "Value"],
+                ["MID 1", document.getElementById("MID1").value],
+                ["MID 2", document.getElementById("MID2").value],
+                ["MCQ 1", document.getElementById("MCQ1").value],
+                ["MCQ 2", document.getElementById("MCQ2").value],
+                ["Assignment 1", document.getElementById("assign1").value],
+                ["Assignment 2", document.getElementById("assign2").value],
+                ["Total Internal Marks", finalMarks]
+            ];
+
+            doc.autoTable({
+                startY: 20,
+                head: [["Parameter", "Value"]],
+                body: tableData,
+            });
+
+            doc.save('internal_marks_report.pdf');
+        }
+    </script>
+</body>
+
+</html>
