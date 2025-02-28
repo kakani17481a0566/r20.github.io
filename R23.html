@@ -64,8 +64,9 @@
 
         <tr>
             <td colspan="4" class="text-center">
-                <button type="button" class="btn btn-success" id="R23_calculateButton" onclick="calculateInternalMarks()"
-                    style="font-size: 16px; padding: 10px 20px;">Calculate Internal Marks</button>
+                <button type="button" class="btn btn-success" id="R23_calculateButton"
+                    onclick="calculateInternalMarks()" style="font-size: 16px; padding: 10px 20px;">Calculate Internal
+                    Marks</button>
                 <button type="reset" class="btn btn-warning" id="R23_resetButton" onclick="resetForm()"
                     style="font-size: 16px; padding: 10px 20px;">Reset</button>
                 <button type="button" class="btn btn-info" id="R23_exportButton" onclick="exportToCSV()" disabled
@@ -74,9 +75,8 @@
                     style="font-size: 16px; padding: 10px 20px;">Export to PDF</button>
             </td>
         </tr>
-        
-    </table>
 
+    </table>
 
     <table id="errorMessages"
         style="color: rgb(255, 255, 255); font-weight: bold; text-align: center; margin-top: 10px; width: 100%;">
@@ -143,8 +143,8 @@
             // If there are errors, stop calculation
             if (errors.length > 0) {
                 document.getElementById("result").innerHTML = "";
-                document.getElementById("exportButton").disabled = true;
-                document.getElementById("exportPdfButton").disabled = true;
+                document.getElementById("R23_exportButton").disabled = true;
+                document.getElementById("R23_exportPdfButton").disabled = true;
                 return;
             }
 
@@ -157,44 +157,43 @@
 
             // Detailed breakdown result in table format
             var resultHTML = `
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th style="color: white;">Parameter</th>
-                <th style="color: white;">Calculation</th>
-                <th style="color: white;">Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="color: white;">Midterm Marks Average</td>
-                <td style="color: white;">(${MID1} / 2) + (${MID2} / 2) / 2</td>
-                <td style="color: white;">${midAverage.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td style="color: white;">MCQ Marks Average</td>
-                <td style="color: white;">(${MCQ1} + ${MCQ2}) / 2</td>
-                <td style="color: white;">${mcqAverage.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td style="color: white;">Assignment Marks Average</td>
-                <td style="color: white;">(${assign1} + ${assign2}) / 2</td>
-                <td style="color: white;">${assignmentAverage.toFixed(2)}</td>
-            </tr>
-            <tr>
-                <td style="color: white;">Total Internal Marks</td>
-                <td style="color: white;">Midterm + MCQ + Assignment Average</td>
-                <td style="color: white;">${finalMarks}</td>
-            </tr>
-        </tbody>
-    </table>
-`;
-
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="color: white;">Parameter</th>
+                    <th style="color: white;">Calculation</th>
+                    <th style="color: white;">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color: white;">Midterm Marks Average</td>
+                    <td style="color: white;">(${MID1} / 2) + (${MID2} / 2) / 2</td>
+                    <td style="color: white;">${midAverage.toFixed(2)}</td>
+                </tr>
+                <tr>
+                    <td style="color: white;">MCQ Marks Average</td>
+                    <td style="color: white;">(${MCQ1} + ${MCQ2}) / 2</td>
+                    <td style="color: white;">${mcqAverage.toFixed(2)}</td>
+                </tr>
+                <tr>
+                    <td style="color: white;">Assignment Marks Average</td>
+                    <td style="color: white;">(${assign1} + ${assign2}) / 2</td>
+                    <td style="color: white;">${assignmentAverage.toFixed(2)}</td>
+                </tr>
+                <tr>
+                    <td style="color: white;">Total Internal Marks</td>
+                    <td style="color: white;">Midterm + MCQ + Assignment Average</td>
+                    <td style="color: white;">${finalMarks}</td>
+                </tr>
+            </tbody>
+        </table>
+    `;
 
             // Display detailed result
             document.getElementById("result").innerHTML = resultHTML;
-            document.getElementById("exportButton").disabled = false;
-            document.getElementById("exportPdfButton").disabled = false;
+            document.getElementById("R23_exportButton").disabled = false;
+            document.getElementById("R23_exportPdfButton").disabled = false;
         }
 
         function resetForm() {
@@ -206,8 +205,8 @@
             document.getElementById("assign2").value = "";
             document.getElementById("result").innerHTML = "";
             document.getElementById("errorMessages").innerHTML = "";
-            document.getElementById("exportButton").disabled = true;
-            document.getElementById("exportPdfButton").disabled = true;
+            document.getElementById("R23_exportButton").disabled = true;
+            document.getElementById("R23_exportPdfButton").disabled = true;
         }
 
         function exportToCSV() {
@@ -218,32 +217,18 @@
             var assign1 = document.getElementById("assign1").value;
             var assign2 = document.getElementById("assign2").value;
 
-            // Check if all fields are filled
-            if (!MID1 || !MID2 || !MCQ1 || !MCQ2 || !assign1 || !assign2) {
-                alert("Please fill in all fields before exporting.");
-                return;
-            }
-
-            // Final marks (calculated earlier in the function)
-            var MID1 = parseFloat(MID1);
-            var MID2 = parseFloat(MID2);
-            var MCQ1 = parseFloat(MCQ1);
-            var MCQ2 = parseFloat(MCQ2);
-            var assign1 = parseFloat(assign1);
-            var assign2 = parseFloat(assign2);
-
-            var midAverage = ((MID1 / 2) + (MID2 / 2)) / 2;
-            var mcqAverage = ((MCQ1 + MCQ2) / 2);
-            var assignmentAverage = ((assign1 + assign2) / 2);
+            // Final marks calculation
+            var midAverage = ((parseFloat(MID1) / 2) + (parseFloat(MID2) / 2)) / 2;
+            var mcqAverage = ((parseFloat(MCQ1) + parseFloat(MCQ2)) / 2);
+            var assignmentAverage = ((parseFloat(assign1) + parseFloat(assign2)) / 2);
             var marks = midAverage + mcqAverage + assignmentAverage;
             var finalMarks = marks.toFixed(2);
 
-            // Create CSV content including final marks
+            // Create CSV content
             var csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "MID 1,MID 2,MCQ 1,MCQ 2,Assignment 1,Assignment 2,Total Internal Marks\n"; // Add header for final marks
-            csvContent += `${MID1},${MID2},${MCQ1},${MCQ2},${assign1},${assign2},${finalMarks}\n`; // Add values + final marks
+            csvContent += "MID 1,MID 2,MCQ 1,MCQ 2,Assignment 1,Assignment 2,Total Internal Marks\n";
+            csvContent += `${MID1},${MID2},${MCQ1},${MCQ2},${assign1},${assign2},${finalMarks}\n`;
 
-            // Create link to download CSV file
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
             link.setAttribute("href", encodedUri);
@@ -257,7 +242,7 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            var finalMarks = document.getElementById("result").innerText.split("\n")[4].replace("Total Internal Marks:", "").trim();
+            var finalMarks = parseFloat(document.getElementById("result").querySelector("td:nth-child(3)").textContent.trim());
 
             doc.setFontSize(16);
             doc.text("SRGEC R23 Internal Marks Report", 20, 10);
@@ -282,6 +267,7 @@
             doc.save('internal_marks_report.pdf');
         }
     </script>
+
 </body>
 
 </html>
