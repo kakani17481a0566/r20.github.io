@@ -16,7 +16,7 @@
         .container {
             text-align: center;
             padding: 30px;
-            background-color:black;
+            background-color: black;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 60%;
@@ -47,6 +47,19 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .card {
+            background-color: #1e1e1e;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            text-align: center;
+            padding: 50px;
+        }
     </style>
 </head>
 <body>
@@ -60,16 +73,19 @@
                 <button onclick="location.href='R23.html'" id="btn-r23" class="btn custom-btn">R23</button>
                 <button onclick="location.href='MBA.html'" id="btn-MBA" class="btn custom-btn">MBA</button> <!-- Updated link for MBA -->
                 <button onclick="location.href='MBA.html'" id="btn-MBA" class="btn custom-btn">MBA</button>
-
             </div>
         </div>
     </nav>
 
-    <!-- Page Under Construction Message -->
+    <!-- Bootstrap Card for Page Under Construction Message -->
     <div class="container">
-        <h1>Page Under Construction</h1>
-        <p>We're working hard to bring you this page. Please check back later.</p>
-        <div class="spinner"></div>
+        <div class="card">
+            <div class="card-body">
+                <h1>Page Under Construction</h1>
+                <p>We're working hard to bring you this page. Please check back later.</p>
+                <div class="spinner"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS and Popper.js CDN links -->
