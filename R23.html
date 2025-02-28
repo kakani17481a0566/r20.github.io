@@ -14,13 +14,9 @@
 <style>
     input {
         width: 10%;
-        /* Adjust the width of the input field */
         height: 50px;
-        /* Adjust the height (breadth) of the input field */
         padding: 10px;
-        /* Adjust padding for better visibility */
         font-size: 16px;
-        /* Optional: Increase font size for better readability */
     }
 </style>
 
@@ -157,38 +153,33 @@
 
             // Detailed breakdown result in table format
             var resultHTML = `
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th style="color: white;">Parameter</th>
-                    <th style="color: white;">Calculation</th>
-                    <th style="color: white;">Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="color: white;">Midterm Marks Average</td>
-                    <td style="color: white;">(${MID1} / 2) + (${MID2} / 2) / 2</td>
-                    <td style="color: white;">${midAverage.toFixed(2)}</td>
-                </tr>
-                <tr>
-                    <td style="color: white;">MCQ Marks Average</td>
-                    <td style="color: white;">(${MCQ1} + ${MCQ2}) / 2</td>
-                    <td style="color: white;">${mcqAverage.toFixed(2)}</td>
-                </tr>
-                <tr>
-                    <td style="color: white;">Assignment Marks Average</td>
-                    <td style="color: white;">(${assign1} + ${assign2}) / 2</td>
-                    <td style="color: white;">${assignmentAverage.toFixed(2)}</td>
-                </tr>
-                <tr>
-                    <td style="color: white;">Total Internal Marks</td>
-                    <td style="color: white;">Midterm + MCQ + Assignment Average</td>
-                    <td style="color: white;">${finalMarks}</td>
-                </tr>
-            </tbody>
-        </table>
-    `;
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="color: white;">Parameter</th>
+                <th style="color: white;">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: white;">Midterm Marks Average</td>
+                <td style="color: white;">${midAverage.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td style="color: white;">MCQ Marks Average</td>
+                <td style="color: white;">${mcqAverage.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td style="color: white;">Assignment Marks Average</td>
+                <td style="color: white;">${assignmentAverage.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td style="color: white;">Total Internal Marks</td>
+                <td style="color: white;">${finalMarks}</td>
+            </tr>
+        </tbody>
+    </table>
+`;
 
             // Display detailed result
             document.getElementById("result").innerHTML = resultHTML;
@@ -242,11 +233,17 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            var finalMarks = parseFloat(document.getElementById("result").querySelector("td:nth-child(3)").textContent.trim());
+            // Title
+            doc.setFontSize(18);
+            doc.setTextColor(0, 0, 255); // Blue color
+            doc.text("SRGEC R23 Internal Marks Report", 10, 15);
 
-            doc.setFontSize(16);
-            doc.text("SRGEC R23 Internal Marks Report", 20, 10);
+            // Subtitle
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0); // Black color
+            doc.text("Detailed Marks Breakdown", 10, 25);
 
+            // Table Data
             const tableData = [
                 ["Parameter", "Value"],
                 ["MID 1", document.getElementById("MID1").value],
@@ -255,16 +252,26 @@
                 ["MCQ 2", document.getElementById("MCQ2").value],
                 ["Assignment 1", document.getElementById("assign1").value],
                 ["Assignment 2", document.getElementById("assign2").value],
-                ["Total Internal Marks", finalMarks]
+                ["Midterm Average", ((parseFloat(document.getElementById("MID1").value) / 2 + parseFloat(document.getElementById("MID2").value) / 2) / 2)],
+                ["MCQ Average", (parseFloat(document.getElementById("MCQ1").value) + parseFloat(document.getElementById("MCQ2").value)) / 2],
+                ["Assignment Average", (parseFloat(document.getElementById("assign1").value) + parseFloat(document.getElementById("assign2").value)) / 2],
+                ["Total Internal Marks", parseFloat(document.getElementById("result").querySelector("td:nth-child(2)").textContent.trim())]
             ];
 
+
+            // Generate Table
             doc.autoTable({
-                startY: 20,
-                head: [["Parameter", "Value"]],
-                body: tableData,
+                startY: 30,
+                head: [tableData[0]], // Header row
+                body: tableData.slice(1), // Data rows
+                theme: "grid", // Add grid lines
+                styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0] }, // Styling
+                headStyles: { fillColor: [41, 128, 185], textColor: [255, 255, 255] }, // Header styling
+                alternateRowStyles: { fillColor: [245, 245, 245] } // Alternate row color
             });
 
-            doc.save('internal_marks_report.pdf');
+            // Save PDF
+            doc.save("internal_marks_report.pdf");
         }
     </script>
 
