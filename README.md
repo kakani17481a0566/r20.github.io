@@ -1,91 +1,60 @@
-# SRGEC R20 Batch Internal Marks Calculator
+# SRGEC R23 BATCH INTERNAL MARKS CALCULATOR
 
-## Overview
-The SRGEC R20 Batch Internal Marks Calculator is a web application designed to help students and educators calculate internal marks based on performance in two mid-term assessments (MID 1 and MID 2). The application allows users to input scores for objective, descriptive, and assignment assessments and provides a final internal mark based on a weighted average.
+## Description
+
+The **Seshadri Rao Gudlavalleru Engineering College (SRGEC) R23 BATCH INTERNAL MARKS CALCULATOR** is a web-based application designed to help students and faculty of SRGEC easily calculate their internal marks. The calculator accepts inputs for Midterm Marks, MCQ Marks, and Assignment Marks from two cycles and computes the final internal marks based on these inputs. It also provides options to export the results as a CSV or PDF report.
 
 ## Features
-- Input fields for MID 1 and MID 2 scores (Objective, Descriptive, and Assignment).
-- Automatic calculation of internal marks based on user input.
-- Validation to ensure all inputs are within specified ranges.
-- Display of results in a structured table format.
-- Reset functionality to clear inputs and results.
+
+- **Input Fields** for:
+  - Midterm Marks (MID1, MID2)
+  - MCQ Marks (MCQ1, MCQ2)
+  - Assignment Marks (Assign1, Assign2)
+
+- **Validation**: The application ensures that each input value is within its valid range:
+  - MID1, MID2: 0-30
+  - MCQ1, MCQ2: 0-10
+  - Assign1, Assign2: 0-5
+
+- **Calculation of Internal Marks**: 
+  - The application calculates the average of Midterm, MCQ, and Assignment Marks, and computes the total internal marks.
+
+- **Export Options**:
+  - **Export to CSV**: Save the input values and the calculated total marks as a CSV file.
+  - **Export to PDF**: Download a detailed report in PDF format with a breakdown of the marks.
+
+- **Error Handling**: Displays error messages if any input is out of range and highlights the invalid fields.
+
+- **Reset Function**: Clears all inputs and results when the reset button is pressed.
 
 ## Technologies Used
-- **HTML**: For structuring the web application.
-- **CSS (Bootstrap)**: For styling and responsive design.
-- **JavaScript**: For interactive functionality and calculations.
+
+- **HTML**: For the structure of the webpage.
+- **CSS**: For styling the page and making the form elements user-friendly.
+- **JavaScript**: For the logic to handle calculations, validation, and exporting results.
+  - **jsPDF**: A library used to generate PDF reports.
+  - **jsPDF-AutoTable**: A plugin for generating tables in PDFs.
+  - **Bootstrap 4**: A CSS framework used for responsive design and UI components.
 
 ## How to Use
-1. Open the `index.html` file in a web browser.
-2. Enter the marks for Objective (0-10), Descriptive (0-15), and Assignment (0-5) for both MID 1 and MID 2.
-3. Click the "Calculate Internal Marks" button to compute the results.
-4. Review the calculated internal marks displayed in the results table.
-5. Use the "Reset" button to clear all input fields and results.
 
-## Algorithm
-1. Validate input values for each assessment.
-2. Calculate MID scores by summing the respective inputs.
-3. Determine the best and least MID scores.
-4. Calculate final internal marks based on weighted averages.
-5. Display results in a formatted table.
+1. **Enter Marks**:
+   - Fill in the fields for MID1, MID2, MCQ1, MCQ2, Assign1, and Assign2.
 
-## Test Cases
-### Test Case 1: Valid Input
-- MID 1: Objective (8), Descriptive (12), Assignment (4)
-- MID 2: Objective (9), Descriptive (13), Assignment (5)
-- Expected Result: Internal Marks (40.5)
+2. **Calculate Internal Marks**:
+   - Click the **"Calculate Internal Marks"** button to compute your marks. The results will be displayed below the input form with a breakdown of each category.
 
-### Test Case 2: Invalid Input (Out of Range)
-- MID 1: Objective (11), Descriptive (16), Assignment (6)
-- MID 2: Objective (10), Descriptive (15), Assignment (5)
-- Expected Result: Error Message (Input out of range)
+3. **Export Results**:
+   - After calculating the marks, you can export the results:
+     - Click **"Export to CSV"** to download a CSV file.
+     - Click **"Export to PDF"** to download a PDF report.
 
-### Test Case 3: Zero Input
-- MID 1: Objective (0), Descriptive (0), Assignment (0)
-- MID 2: Objective (0), Descriptive (0), Assignment (0)
-- Expected Result: Internal Marks (0)
+4. **Reset**:
+   - Click the **"Reset"** button to clear all inputs and results.
 
-### Test Case 4: Edge Case (Maximum Marks)
-- MID 1: Objective (10), Descriptive (15), Assignment (5)
-- MID 2: Objective (10), Descriptive (15), Assignment (5)
-- Expected Result: Internal Marks (40)
+## Installation
 
-### Test Case 5: Edge Case (Minimum Marks)
-- MID 1: Objective (0), Descriptive (0), Assignment (0)
-- MID 2: Objective (0), Descriptive (0), Assignment (0)
-- Expected Result: Internal Marks (0)
+1. Clone the repository:
 
-### Test Case 6: Edge Case (Equal Marks)
-- MID 1: Objective (5), Descriptive (7), Assignment (3)
-- MID 2: Objective (5), Descriptive (7), Assignment (3)
-- Expected Result: Internal Marks (30)
-
-### Test Case 7: Invalid Input (Negative Marks)
-- MID 1: Objective (-1), Descriptive (12), Assignment (4)
-- MID 2: Objective (9), Descriptive (13), Assignment (5)
-- Expected Result: Error Message (Input out of range)
-
-### Test Case 8: Edge Case (Maximum Marks in One MID)
-- MID 1: Objective (10), Descriptive (15), Assignment (5)
-- MID 2: Objective (0), Descriptive (0), Assignment (0)
-- Expected Result: Internal Marks (25)
-
-### Test Case 9: Edge Case (Minimum Marks in One MID)
-- MID 1: Objective (0), Descriptive (0), Assignment (0)
-- MID 2: Objective (10), Descriptive (15), Assignment (5)
-- Expected Result: Internal Marks (50)
-
-### Test Case 10: Random Input
-- MID 1: Objective (7), Descriptive (11), Assignment (2)
-- MID 2: Objective (8), Descriptive (14), Assignment (4)
-- Expected Result: Internal Marks (39.5)
-
-## Conclusion
-The SRGEC R20 Batch Internal Marks Calculator simplifies the process of calculating internal marks for students, providing immediate feedback and enhancing the academic assessment experience. 
-
-## Scope of Improvement
-- Enhance user interface design and usability.
-- Improve error handling with more detailed messages.
-- Add features for saving and exporting results.
-- Optimize for mobile devices.
-- Implement user authentication for data management.
+   ```bash
+   git clone https://github.com/yourusername/r23.github.io.git
